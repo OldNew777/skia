@@ -54,6 +54,7 @@ bin/ninja
 bin/ninja.exe
 bin/ninja.version
 
+lib
 
 node_modules
 tools/lottiecap/filmstrip.png
