@@ -343,7 +343,7 @@ private:
 ////////////////////////////////////////////////////////////////////////////////
 // Analysis
 
-SampleUsage Analysis::GetSampleUsage(const Program& program,
+SK_API SampleUsage Analysis::GetSampleUsage(const Program& program,
                                      const Variable& child,
                                      bool writesToSampleCoords,
                                      int* elidedSampleCoordCount) {
@@ -355,7 +355,7 @@ SampleUsage Analysis::GetSampleUsage(const Program& program,
     return result;
 }
 
-bool Analysis::ReferencesBuiltin(const Program& program, int builtin) {
+SK_API bool Analysis::ReferencesBuiltin(const Program& program, int builtin) {
     SkASSERT(program.fUsage);
     for (const auto& [variable, counts] : program.fUsage->fVariableCounts) {
         if (counts.fRead > 0 && variable->layout().fBuiltin == builtin) {
@@ -365,7 +365,7 @@ bool Analysis::ReferencesBuiltin(const Program& program, int builtin) {
     return false;
 }
 
-bool Analysis::ReferencesSampleCoords(const Program& program) {
+SK_API bool Analysis::ReferencesSampleCoords(const Program& program) {
     // Look for main().
     for (const std::unique_ptr<ProgramElement>& pe : program.fOwnedElements) {
         if (pe->is<FunctionDefinition>()) {
@@ -383,16 +383,16 @@ bool Analysis::ReferencesSampleCoords(const Program& program) {
     return false;
 }
 
-bool Analysis::ReferencesFragCoords(const Program& program) {
+SK_API bool Analysis::ReferencesFragCoords(const Program& program) {
     return Analysis::ReferencesBuiltin(program, SK_FRAGCOORD_BUILTIN);
 }
 
-bool Analysis::CallsSampleOutsideMain(const Program& program) {
+SK_API bool Analysis::CallsSampleOutsideMain(const Program& program) {
     SampleOutsideMainVisitor visitor;
     return visitor.visit(program);
 }
 
-bool Analysis::CallsColorTransformIntrinsics(const Program& program) {
+SK_API bool Analysis::CallsColorTransformIntrinsics(const Program& program) {
     for (auto [symbol, count] : program.usage()->fCallCounts) {
         const FunctionDeclaration& fn = symbol->as<FunctionDeclaration>();
         if (count != 0 && (fn.intrinsicKind() == k_toLinearSrgb_IntrinsicKind ||
@@ -403,12 +403,12 @@ bool Analysis::CallsColorTransformIntrinsics(const Program& program) {
     return false;
 }
 
-bool Analysis::ReturnsOpaqueColor(const FunctionDefinition& function) {
+SK_API bool Analysis::ReturnsOpaqueColor(const FunctionDefinition& function) {
     ReturnsNonOpaqueColorVisitor visitor;
     return !visitor.visitProgramElement(function);
 }
 
-bool Analysis::ContainsRTAdjust(const Expression& expr) {
+SK_API bool Analysis::ContainsRTAdjust(const Expression& expr) {
     class ContainsRTAdjustVisitor : public ProgramVisitor {
     public:
         bool visitExpression(const Expression& expr) override {
@@ -426,7 +426,7 @@ bool Analysis::ContainsRTAdjust(const Expression& expr) {
     return visitor.visitExpression(expr);
 }
 
-bool Analysis::ContainsVariable(const Expression& expr, const Variable& var) {
+SK_API bool Analysis::ContainsVariable(const Expression& expr, const Variable& var) {
     class ContainsVariableVisitor : public ProgramVisitor {
     public:
         ContainsVariableVisitor(const Variable* v) : fVariable(v) {}
@@ -447,7 +447,7 @@ bool Analysis::ContainsVariable(const Expression& expr, const Variable& var) {
     return visitor.visitExpression(expr);
 }
 
-bool Analysis::IsCompileTimeConstant(const Expression& expr) {
+SK_API bool Analysis::IsCompileTimeConstant(const Expression& expr) {
     class IsCompileTimeConstantVisitor : public ProgramVisitor {
     public:
         bool visitExpression(const Expression& expr) override {
@@ -484,7 +484,7 @@ bool Analysis::IsCompileTimeConstant(const Expression& expr) {
     return visitor.fIsConstant;
 }
 
-bool Analysis::DetectVarDeclarationWithoutScope(const Statement& stmt, ErrorReporter* errors) {
+SK_API bool Analysis::DetectVarDeclarationWithoutScope(const Statement& stmt, ErrorReporter* errors) {
     // A variable declaration can create either a lone VarDeclaration or an unscoped Block
     // containing multiple VarDeclaration statements. We need to detect either case.
     const Variable* var;
@@ -517,20 +517,20 @@ bool Analysis::DetectVarDeclarationWithoutScope(const Statement& stmt, ErrorRepo
     return true;
 }
 
-int Analysis::NodeCountUpToLimit(const FunctionDefinition& function, int limit) {
+SK_API int Analysis::NodeCountUpToLimit(const FunctionDefinition& function, int limit) {
     return NodeCountVisitor{limit}.visit(*function.body());
 }
 
-bool Analysis::StatementWritesToVariable(const Statement& stmt, const Variable& var) {
+SK_API bool Analysis::StatementWritesToVariable(const Statement& stmt, const Variable& var) {
     return VariableWriteVisitor(&var).visit(stmt);
 }
 
-bool Analysis::IsAssignable(Expression& expr, AssignmentInfo* info, ErrorReporter* errors) {
+SK_API bool Analysis::IsAssignable(Expression& expr, AssignmentInfo* info, ErrorReporter* errors) {
     NoOpErrorReporter unusedErrors;
     return IsAssignableVisitor{errors ? errors : &unusedErrors}.visit(expr, info);
 }
 
-bool Analysis::UpdateVariableRefKind(Expression* expr,
+SK_API bool Analysis::UpdateVariableRefKind(Expression* expr,
                                      VariableReference::RefKind kind,
                                      ErrorReporter* errors) {
     Analysis::AssignmentInfo info;

@@ -24,7 +24,7 @@ class Type;
  * Performs constant folding on IR expressions. This simplifies expressions containing
  * compile-time constants, such as replacing `Literal(2) + Literal(2)` with `Literal(4)`.
  */
-class ConstantFolder {
+class SK_API ConstantFolder {
 public:
     /**
      * If `value` is an int literal or const int variable with a known value, returns true and

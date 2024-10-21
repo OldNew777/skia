@@ -24,7 +24,7 @@
 
 namespace SkSL::Loader {
 
-GraphiteModules GetGraphiteModules() {
+SK_API GraphiteModules GetGraphiteModules() {
 #define M(name) SKSL_MINIFIED_##name
     return GraphiteModules{
             M(sksl_graphite_frag),

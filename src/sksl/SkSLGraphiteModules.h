@@ -8,6 +8,8 @@
 #ifndef SKSL_GRAPHITE_MODULES
 #define SKSL_GRAPHITE_MODULES
 
+#include "include/private/base/SkAPI.h"
+
 namespace SkSL::Loader {
 struct GraphiteModules {
     const char* fFragmentShader;
@@ -20,8 +22,8 @@ struct GraphiteModules {
 // In particular, the GetGraphiteModules() needs to be implemented in a graphite specific
 // file, but SetGraphiteModuleLoader needs to be implemented in the common file (used by both
 // Ganesh and Graphite).
-GraphiteModules GetGraphiteModules();
-void SetGraphiteModuleData(const GraphiteModules&);
+SK_API GraphiteModules GetGraphiteModules();
+SK_API void SetGraphiteModuleData(const GraphiteModules&);
 
 }  // namespace SkSL::Loader
 

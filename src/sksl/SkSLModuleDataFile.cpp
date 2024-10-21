@@ -15,7 +15,7 @@
 
 namespace SkSL {
 
-std::string GetModuleData(ModuleType /*name*/, const char* filename) {
+SK_API std::string GetModuleData(ModuleType /*name*/, const char* filename) {
     std::string exePath = SkGetExecutablePath();
     SkString exeDir = SkOSPath::Dirname(exePath.c_str());
     SkString modulePath = SkOSPath::Join(exeDir.c_str(), filename);

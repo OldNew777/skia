@@ -40,7 +40,7 @@ static const char* sdata_sksl_graphite_vert_es2 = "";
 
 namespace SkSL {
 
-std::string GetModuleData(ModuleType type, const char* /*filename*/) {
+SK_API std::string GetModuleData(ModuleType type, const char* /*filename*/) {
 #define M(name) case ModuleType::name: return std::string(SKSL_MINIFIED_##name);
 // Creating a std::string with a nullptr is UB
 #define G(name)                               \
@@ -71,7 +71,7 @@ std::string GetModuleData(ModuleType type, const char* /*filename*/) {
 }
 
 namespace Loader {
-void SetGraphiteModuleData(const GraphiteModules& modules) {
+SK_API void SetGraphiteModuleData(const GraphiteModules& modules) {
     SkASSERTF(sdata_sksl_graphite_frag[0] == '\0', "We should only initialize this once");
     sdata_sksl_graphite_frag = modules.fFragmentShader;
     sdata_sksl_graphite_frag_es2 = modules.fFragmentShaderES2;

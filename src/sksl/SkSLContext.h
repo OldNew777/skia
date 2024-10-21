@@ -21,7 +21,7 @@ class SymbolTable;
 /**
  * Contains compiler-wide objects and state.
  */
-class Context {
+class SK_API Context {
 public:
     Context(const BuiltinTypes& types, ErrorReporter& errors);
     ~Context();

@@ -15,7 +15,7 @@ namespace SkSL {
 /**
  * Represents all of the ways that a fragment processor is sampled by its parent.
  */
-class SampleUsage {
+class SK_API SampleUsage {
 public:
     enum class Kind {
         // Child is never sampled

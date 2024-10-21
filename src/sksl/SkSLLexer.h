@@ -11,6 +11,7 @@
 #define SKSL_Lexer
 #include <cstdint>
 #include <string_view>
+#include "include/private/base/SkAPI.h"
 namespace SkSL {
 
 struct Token {
@@ -120,7 +121,7 @@ struct Token {
     int32_t fLength = -1;
 };
 
-class Lexer {
+class SK_API Lexer {
 public:
     void start(std::string_view text) {
         fText = text;

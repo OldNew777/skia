@@ -9,7 +9,7 @@
 
 namespace SkSL {
 
-const char* ModuleTypeToString(ModuleType type) {
+SK_API const char* ModuleTypeToString(ModuleType type) {
 #define M(type) case ModuleType::type: return #type;
     switch (type) {
         SKSL_MODULE_LIST(M)

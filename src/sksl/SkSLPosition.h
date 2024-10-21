@@ -15,7 +15,7 @@
 
 namespace SkSL {
 
-class Position {
+class SK_API Position {
 public:
     Position()
         : fStartOffset(-1)

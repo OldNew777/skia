@@ -38,11 +38,11 @@ std::unique_ptr<ShaderCaps> ShaderCapsFactory::MakeShaderCaps() {
 }
 #endif  // defined(SKSL_STANDALONE) || !defined(SK_GANESH)
 
-void write_stringstream(const StringStream& s, OutputStream& out) {
+SK_API void write_stringstream(const StringStream& s, OutputStream& out) {
     out.write(s.str().c_str(), s.str().size());
 }
 
-bool type_to_sksltype(const Context& context, const Type& type, SkSLType* outType) {
+SK_API bool type_to_sksltype(const Context& context, const Type& type, SkSLType* outType) {
     // If a new GrSL type is added, this function will need to be updated.
     static_assert(kSkSLTypeCount == 41);
 

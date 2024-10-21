@@ -132,10 +132,10 @@ enum IntrinsicKind : int8_t {
 
 // Returns a map which allows IntrinsicKind values to be looked up by name.
 using IntrinsicMap = skia_private::THashMap<std::string_view, IntrinsicKind>;
-const IntrinsicMap& GetIntrinsicMap();
+SK_API const IntrinsicMap& GetIntrinsicMap();
 
 // Looks up intrinsic functions by name.
-IntrinsicKind FindIntrinsicKind(std::string_view functionName);
+SK_API IntrinsicKind FindIntrinsicKind(std::string_view functionName);
 
 }
 

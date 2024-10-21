@@ -42,7 +42,7 @@ class Variable;
 /**
  * Consumes .sksl text and converts it into an IR tree, encapsulated in a Program.
  */
-class Parser {
+class SK_API Parser {
 public:
     Parser(Compiler* compiler,
            const ProgramSettings& settings,

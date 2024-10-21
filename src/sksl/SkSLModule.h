@@ -56,9 +56,9 @@ struct Module {
 };
 
 // Given a ModuleType, returns its name.
-const char* ModuleTypeToString(ModuleType type);
+SK_API const char* ModuleTypeToString(ModuleType type);
 
-std::string GetModuleData(ModuleType type, const char* filename);
+SK_API std::string GetModuleData(ModuleType type, const char* filename);
 
 }  // namespace SkSL
 

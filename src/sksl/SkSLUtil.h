@@ -23,7 +23,7 @@ class OutputStream;
 class StringStream;
 class Type;
 
-struct ShaderCaps {
+struct SK_API ShaderCaps {
     /**
      * Indicates how GLSL must interact with advanced blend equations. The KHR extension requires
      * special layout qualifiers in the fragment shader.
@@ -165,7 +165,7 @@ struct ShaderCaps {
 };
 
 // Various sets of caps for use in tests
-class ShaderCapsFactory {
+class SK_API ShaderCapsFactory {
 public:
     static const ShaderCaps* Default() {
         static const SkSL::ShaderCaps* sCaps = [] {
@@ -186,9 +186,9 @@ protected:
     static std::unique_ptr<ShaderCaps> MakeShaderCaps();
 };
 
-bool type_to_sksltype(const Context& context, const Type& type, SkSLType* outType);
+SK_API bool type_to_sksltype(const Context& context, const Type& type, SkSLType* outType);
 
-void write_stringstream(const StringStream& d, OutputStream& out);
+SK_API void write_stringstream(const StringStream& d, OutputStream& out);
 
 }  // namespace SkSL
 

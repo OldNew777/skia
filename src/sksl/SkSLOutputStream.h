@@ -17,7 +17,7 @@
 
 namespace SkSL {
 
-class OutputStream {
+class SK_API OutputStream {
 public:
     virtual bool isValid() const {
         return true;

@@ -41,7 +41,7 @@ namespace Analysis { enum class ReturnComplexity; }
  * (e.g. return statements nested inside of a loop construct). The inliner isn't able to guarantee
  * identical-to-GLSL execution order if the inlined function has visible side effects.
  */
-class Inliner {
+class SK_API Inliner {
 public:
     Inliner(const Context* context) : fContext(context) {}
 

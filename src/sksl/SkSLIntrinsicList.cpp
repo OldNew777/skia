@@ -13,7 +13,7 @@ using namespace skia_private;
 
 namespace SkSL {
 
-const IntrinsicMap& GetIntrinsicMap() {
+SK_API const IntrinsicMap& GetIntrinsicMap() {
     #define SKSL_INTRINSIC(name) {#name, k_##name##_IntrinsicKind},
     static const SkNoDestructor<IntrinsicMap> kAllIntrinsics(IntrinsicMap{
         SKSL_INTRINSIC_LIST
@@ -23,7 +23,7 @@ const IntrinsicMap& GetIntrinsicMap() {
     return *kAllIntrinsics;
 }
 
-IntrinsicKind FindIntrinsicKind(std::string_view functionName) {
+SK_API IntrinsicKind FindIntrinsicKind(std::string_view functionName) {
     if (skstd::starts_with(functionName, '$')) {
         functionName.remove_prefix(1);
     }

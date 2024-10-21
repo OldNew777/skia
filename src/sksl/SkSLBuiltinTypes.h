@@ -17,7 +17,7 @@ namespace SkSL {
 /**
  * Contains the built-in, core types for SkSL.
  */
-class BuiltinTypes {
+class SK_API BuiltinTypes {
 public:
     BuiltinTypes();
 

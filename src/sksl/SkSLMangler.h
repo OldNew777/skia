@@ -10,12 +10,13 @@
 
 #include <string>
 #include <string_view>
+#include "include/private/base/SkAPI.h"
 
 namespace SkSL {
 
 class SymbolTable;
 
-class Mangler {
+class SK_API Mangler {
 public:
     /**
      * Mangles baseName to create a name that is unique within symbolTable.
