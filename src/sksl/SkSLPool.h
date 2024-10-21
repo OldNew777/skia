@@ -10,6 +10,7 @@
 
 #include <cstddef>
 #include <memory>
+#include "include/private/base/SkAPI.h"
 
 namespace SkSL {
 

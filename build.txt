@@ -1,0 +1,2 @@
+bin\gn gen out/Shared --args="is_debug=true is_component_build=true target_cpu=\"x64\""
+bin\gn gen out/Shared-Clang --args="is_debug=true is_component_build=true target_cpu=\"x64\" clang_win=\"C:\dev\vcpkg\installed\x64-windows\tools\llvm\""
