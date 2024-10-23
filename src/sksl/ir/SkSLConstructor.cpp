@@ -148,7 +148,7 @@ static std::unique_ptr<Expression> convert_compound_constructor(const Context& c
     return ConstructorCompound::Make(context, pos, type, std::move(args));
 }
 
-std::unique_ptr<Expression> Constructor::Convert(const Context& context,
+SK_API std::unique_ptr<Expression> Constructor::Convert(const Context& context,
                                                  Position pos,
                                                  const Type& type,
                                                  ExpressionArray args) {

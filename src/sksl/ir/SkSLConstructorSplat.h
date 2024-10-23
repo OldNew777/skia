@@ -28,7 +28,7 @@ class Context;
  *
  * These always contain exactly 1 scalar.
  */
-class ConstructorSplat final : public SingleArgumentConstructor {
+class SK_API ConstructorSplat final : public SingleArgumentConstructor {
 public:
     inline static constexpr Kind kIRNodeKind = Kind::kConstructorSplat;
 

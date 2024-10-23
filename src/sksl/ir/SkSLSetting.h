@@ -30,7 +30,7 @@ enum class OperatorPrecedence : uint8_t;
  * used when assembling a module. These nodes are replaced with the value of the setting during
  * compilation when ShaderCaps are available.
  */
-class Setting final : public Expression {
+class SK_API Setting final : public Expression {
 public:
     inline static constexpr Kind kIRNodeKind = Kind::kSetting;
 

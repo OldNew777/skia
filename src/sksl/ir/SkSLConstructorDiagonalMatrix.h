@@ -27,7 +27,7 @@ class Type;
  *
  * These always contain exactly 1 scalar.
  */
-class ConstructorDiagonalMatrix final : public SingleArgumentConstructor {
+class SK_API ConstructorDiagonalMatrix final : public SingleArgumentConstructor {
 public:
     inline static constexpr Kind kIRNodeKind = Kind::kConstructorDiagonalMatrix;
 

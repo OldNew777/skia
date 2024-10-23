@@ -27,7 +27,7 @@ enum class OperatorPrecedence : uint8_t;
 /**
  * A ternary expression (test ? ifTrue : ifFalse).
  */
-class TernaryExpression final : public Expression {
+class SK_API TernaryExpression final : public Expression {
 public:
     inline static constexpr Kind kIRNodeKind = Kind::kTernary;
 

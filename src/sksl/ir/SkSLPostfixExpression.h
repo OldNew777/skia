@@ -24,7 +24,7 @@ class Context;
 /**
  * An expression modified by a unary operator appearing after it, such as 'i++'.
  */
-class PostfixExpression final : public Expression {
+class SK_API PostfixExpression final : public Expression {
 public:
     inline static constexpr Kind kIRNodeKind = Kind::kPostfix;
 

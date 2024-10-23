@@ -23,7 +23,7 @@ namespace SkSL {
 /**
  * A single case of a 'switch' statement.
  */
-class SwitchCase final : public Statement {
+class SK_API SwitchCase final : public Statement {
 public:
     inline static constexpr Kind kIRNodeKind = Kind::kSwitchCase;
 

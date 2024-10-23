@@ -23,7 +23,7 @@ class Context;
 /**
  * A lone expression being used as a statement.
  */
-class ExpressionStatement final : public Statement {
+class SK_API ExpressionStatement final : public Statement {
 public:
     inline static constexpr Kind kIRNodeKind = Kind::kExpression;
 

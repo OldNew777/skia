@@ -34,7 +34,7 @@ class Type;
  * separate (sequential) statements. For instance, the SkSL 'int x = 2, y[3];' produces two
  * VarDeclaration instances (wrapped in an unscoped Block).
  */
-class VarDeclaration final : public Statement {
+class SK_API VarDeclaration final : public Statement {
 public:
     inline static constexpr Kind kIRNodeKind = Kind::kVarDeclaration;
 

@@ -25,7 +25,7 @@ class Type;
 /**
  * Represents the construction of an array type, such as "float[5](x, y, z, w, 1)".
  */
-class ConstructorArray final : public MultiArgumentConstructor {
+class SK_API ConstructorArray final : public MultiArgumentConstructor {
 public:
     inline static constexpr Kind kIRNodeKind = Kind::kConstructorArray;
 

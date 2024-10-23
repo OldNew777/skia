@@ -27,7 +27,7 @@ enum class OperatorPrecedence : uint8_t;
  * Represents an identifier referring to a type. This is an intermediate value: TypeReferences are
  * always eventually replaced by Constructors in valid programs.
  */
-class TypeReference final : public Expression {
+class SK_API TypeReference final : public Expression {
 public:
     inline static constexpr Kind kIRNodeKind = Kind::kTypeReference;
 

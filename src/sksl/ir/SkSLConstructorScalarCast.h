@@ -27,7 +27,7 @@ class Type;
  *
  * These always contain exactly 1 scalar of a differing type, and are never constant.
  */
-class ConstructorScalarCast final : public SingleArgumentConstructor {
+class SK_API ConstructorScalarCast final : public SingleArgumentConstructor {
 public:
     inline static constexpr Kind kIRNodeKind = Kind::kConstructorScalarCast;
 

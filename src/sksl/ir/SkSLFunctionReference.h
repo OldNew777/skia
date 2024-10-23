@@ -19,7 +19,7 @@ namespace SkSL {
  * An identifier referring to a function name. This is an intermediate value: FunctionReferences are
  * always eventually replaced by FunctionCalls in valid programs.
  */
-class FunctionReference final : public Expression {
+class SK_API FunctionReference final : public Expression {
 public:
     inline static constexpr Kind kIRNodeKind = Kind::kFunctionReference;
 

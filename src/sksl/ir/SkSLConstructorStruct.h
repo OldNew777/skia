@@ -25,7 +25,7 @@ class Type;
 /**
  * Represents the construction of an struct object, such as "Color(red, green, blue, 1)".
  */
-class ConstructorStruct final : public MultiArgumentConstructor {
+class SK_API ConstructorStruct final : public MultiArgumentConstructor {
 public:
     inline static constexpr Kind kIRNodeKind = Kind::kConstructorStruct;
 

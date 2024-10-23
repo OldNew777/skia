@@ -27,7 +27,7 @@ class VariableReference;
 /**
  * A binary operation.
  */
-class BinaryExpression final : public Expression {
+class SK_API BinaryExpression final : public Expression {
 public:
     inline static constexpr Kind kIRNodeKind = Kind::kBinary;
 

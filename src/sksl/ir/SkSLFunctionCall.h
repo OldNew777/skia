@@ -28,7 +28,7 @@ enum class OperatorPrecedence : uint8_t;
 /**
  * A function invocation.
  */
-class FunctionCall final : public Expression {
+class SK_API FunctionCall final : public Expression {
 public:
     inline static constexpr Kind kIRNodeKind = Kind::kFunctionCall;
 

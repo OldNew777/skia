@@ -25,7 +25,7 @@ class Context;
 /**
  * A function definition (a declaration plus an associated block of code).
  */
-class FunctionDefinition final : public ProgramElement {
+class SK_API FunctionDefinition final : public ProgramElement {
 public:
     inline static constexpr Kind kIRNodeKind = Kind::kFunction;
 

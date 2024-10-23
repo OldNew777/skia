@@ -50,7 +50,7 @@ SK_MAKE_BITMASK_OPS(SkSL::ModifierFlag);
 
 namespace SkSL {
 
-class ModifierFlags : public SkEnumBitMask<SkSL::ModifierFlag> {
+class SK_API ModifierFlags : public SkEnumBitMask<SkSL::ModifierFlag> {
 public:
     using SkEnumBitMask<SkSL::ModifierFlag>::SkEnumBitMask;
     ModifierFlags(SkEnumBitMask<SkSL::ModifierFlag> that)

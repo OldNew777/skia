@@ -24,7 +24,7 @@ class Context;
 /**
  * A 'do' statement.
  */
-class DoStatement final : public Statement {
+class SK_API DoStatement final : public Statement {
 public:
     inline static constexpr Kind kIRNodeKind = Kind::kDo;
 

@@ -27,7 +27,7 @@ class Type;
  *
  * These always contain exactly 1 vector or matrix of matching size, and are never constant.
  */
-class ConstructorCompoundCast final : public SingleArgumentConstructor {
+class SK_API ConstructorCompoundCast final : public SingleArgumentConstructor {
 public:
     inline static constexpr Kind kIRNodeKind = Kind::kConstructorCompoundCast;
 

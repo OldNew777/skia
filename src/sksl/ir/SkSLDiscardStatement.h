@@ -22,7 +22,7 @@ class Context;
 /**
  * A 'discard' statement.
  */
-class DiscardStatement final : public Statement {
+class SK_API DiscardStatement final : public Statement {
 public:
     inline static constexpr Kind kIRNodeKind = Kind::kDiscard;
 

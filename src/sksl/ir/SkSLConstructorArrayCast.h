@@ -29,7 +29,7 @@ class Type;
  *
  * These always contain exactly 1 array of matching size, and are never constant.
  */
-class ConstructorArrayCast final : public SingleArgumentConstructor {
+class SK_API ConstructorArrayCast final : public SingleArgumentConstructor {
 public:
     inline static constexpr Kind kIRNodeKind = Kind::kConstructorArrayCast;
 

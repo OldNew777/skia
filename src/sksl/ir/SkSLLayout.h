@@ -72,7 +72,7 @@ using LayoutFlags = SkEnumBitMask<SkSL::LayoutFlag>;
  *
  * layout (location = 0) int x;
  */
-struct Layout {
+struct SK_API Layout {
     Layout(LayoutFlags flags, int location, int offset, int binding, int index, int set,
            int builtin, int inputAttachmentIndex)
             : fFlags(flags)

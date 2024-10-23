@@ -30,7 +30,7 @@ class Context;
  *   bool highQuality;
  * };
  */
-class StructDefinition final : public ProgramElement {
+class SK_API StructDefinition final : public ProgramElement {
 public:
     inline static constexpr Kind kIRNodeKind = Kind::kStructDefinition;
 

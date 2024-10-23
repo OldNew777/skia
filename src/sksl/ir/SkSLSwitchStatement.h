@@ -27,7 +27,7 @@ class SymbolTable;
 /**
  * A 'switch' statement.
  */
-class SwitchStatement final : public Statement {
+class SK_API SwitchStatement final : public Statement {
 public:
     inline static constexpr Kind kIRNodeKind = Kind::kSwitch;
 

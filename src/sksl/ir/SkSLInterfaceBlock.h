@@ -35,7 +35,7 @@ struct Modifiers;
  *
  * At the IR level, this is represented by a single variable of struct type.
  */
-class InterfaceBlock final : public ProgramElement {
+class SK_API InterfaceBlock final : public ProgramElement {
 public:
     inline static constexpr Kind kIRNodeKind = Kind::kInterfaceBlock;
 

@@ -23,7 +23,7 @@ namespace SkSL {
 /**
  * A block of multiple statements functioning as a single statement.
  */
-class Block final : public Statement {
+class SK_API Block final : public Statement {
 public:
     inline static constexpr Kind kIRNodeKind = Kind::kBlock;
 

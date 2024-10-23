@@ -23,7 +23,7 @@ class Context;
 /**
  * #extension <name> : enable
  */
-class Extension final : public ProgramElement {
+class SK_API Extension final : public ProgramElement {
 public:
     inline static constexpr Kind kIRNodeKind = Kind::kExtension;
 

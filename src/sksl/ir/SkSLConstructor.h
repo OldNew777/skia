@@ -28,7 +28,7 @@ enum class OperatorPrecedence : uint8_t;
 /**
  * Base class representing a constructor with unknown arguments.
  */
-class AnyConstructor : public Expression {
+class SK_API AnyConstructor : public Expression {
 public:
     AnyConstructor(Position pos, Kind kind, const Type* type)
             : INHERITED(pos, kind, type) {}
@@ -54,7 +54,7 @@ private:
 /**
  * Base class representing a constructor that takes a single argument.
  */
-class SingleArgumentConstructor : public AnyConstructor {
+class SK_API SingleArgumentConstructor : public AnyConstructor {
 public:
     SingleArgumentConstructor(Position pos, Kind kind, const Type* type,
                               std::unique_ptr<Expression> argument)
@@ -86,7 +86,7 @@ private:
 /**
  * Base class representing a constructor that takes an array of arguments.
  */
-class MultiArgumentConstructor : public AnyConstructor {
+class SK_API MultiArgumentConstructor : public AnyConstructor {
 public:
     MultiArgumentConstructor(Position pos, Kind kind, const Type* type,
             ExpressionArray arguments)
@@ -132,7 +132,7 @@ namespace Constructor {
     // ErrorReporter. This can return null on error, so be careful. There are several different
     // Constructor expression types; this class chooses the proper one based on context, e.g.
     // `ConstructorCompound`, `ConstructorScalarCast`, or `ConstructorMatrixResize`.
-    std::unique_ptr<Expression> Convert(const Context& context,
+    std::unique_ptr<Expression> SK_API Convert(const Context& context,
                                         Position pos,
                                         const Type& type,
                                         ExpressionArray args);

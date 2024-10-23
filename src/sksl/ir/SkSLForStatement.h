@@ -36,7 +36,7 @@ struct LoopUnrollInfo {
 /**
  * A 'for' statement.
  */
-class ForStatement final : public Statement {
+class SK_API ForStatement final : public Statement {
 public:
     inline static constexpr Kind kIRNodeKind = Kind::kFor;
 

@@ -38,7 +38,7 @@ enum class VariableRefKind : int8_t {
  *
  * there is only one Variable 'x', but two VariableReferences to it.
  */
-class VariableReference final : public Expression {
+class SK_API VariableReference final : public Expression {
 public:
     using RefKind = VariableRefKind;
 

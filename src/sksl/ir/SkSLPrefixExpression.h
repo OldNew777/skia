@@ -24,7 +24,7 @@ class Context;
 /**
  * An expression modified by a unary operator appearing before it, such as '!flag'.
  */
-class PrefixExpression final : public Expression {
+class SK_API PrefixExpression final : public Expression {
 public:
     inline static constexpr Kind kIRNodeKind = Kind::kPrefix;
 

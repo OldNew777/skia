@@ -24,7 +24,7 @@ class Context;
 /**
  * An 'if' statement.
  */
-class IfStatement final : public Statement {
+class SK_API IfStatement final : public Statement {
 public:
     inline static constexpr Kind kIRNodeKind = Kind::kIf;
 

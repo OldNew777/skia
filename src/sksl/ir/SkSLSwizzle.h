@@ -48,7 +48,7 @@ using ComponentArray = skia_private::FixedArray<4, int8_t>;
 /**
  * Represents a vector swizzle operation such as 'float3(1, 2, 3).zyx'.
  */
-class Swizzle final : public Expression {
+class SK_API Swizzle final : public Expression {
 public:
     inline static constexpr Kind kIRNodeKind = Kind::kSwizzle;
 

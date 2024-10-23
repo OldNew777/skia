@@ -30,7 +30,7 @@ class Type;
  * constructor must always match the type's slot count. (e.g. `pos.xy` consumes two slots.)
  * The inner values must have the same component type as the vector/matrix.
  */
-class ConstructorCompound final : public MultiArgumentConstructor {
+class SK_API ConstructorCompound final : public MultiArgumentConstructor {
 public:
     inline static constexpr Kind kIRNodeKind = Kind::kConstructorCompound;
 

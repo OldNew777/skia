@@ -71,7 +71,7 @@ struct CoercionCost {
 /**
  * Represents a single field in a struct type.
  */
-struct Field {
+struct SK_API Field {
     Field(Position pos, Layout layout, ModifierFlags flags, std::string_view name, const Type* type)
             : fPosition(pos)
             , fLayout(layout)
@@ -91,7 +91,7 @@ struct Field {
 /**
  * Represents a type, such as int or float4.
  */
-class Type : public Symbol {
+class SK_API Type : public Symbol {
 public:
     inline static constexpr Kind kIRNodeKind = Kind::kType;
     inline static constexpr int kMaxAbbrevLength = 3;

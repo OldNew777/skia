@@ -31,7 +31,7 @@ enum class OperatorPrecedence : uint8_t;
  * A literal value. These can contain ints, floats, or booleans.
  */
 
-class Literal : public Expression {
+class SK_API Literal : public Expression {
 public:
     inline static constexpr Kind kIRNodeKind = Kind::kLiteral;
 

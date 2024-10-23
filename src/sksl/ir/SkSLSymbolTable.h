@@ -32,7 +32,7 @@ class Type;
 /**
  * Maps identifiers to symbols.
  */
-class SymbolTable {
+class SK_API SymbolTable {
 public:
     explicit SymbolTable(bool builtin)
             : fBuiltin(builtin) {}

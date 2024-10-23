@@ -26,7 +26,7 @@ enum class OperatorPrecedence : uint8_t;
 /**
  * An expression which extracts a value from an array, vector or matrix, as in 'm[2]'.
  */
-class IndexExpression final : public Expression {
+class SK_API IndexExpression final : public Expression {
 public:
     inline static constexpr Kind kIRNodeKind = Kind::kIndex;
 

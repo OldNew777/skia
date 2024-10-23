@@ -24,7 +24,7 @@ class Type;
 /**
  * Represents a symbol table entry.
  */
-class Symbol : public IRNode {
+class SK_API Symbol : public IRNode {
 public:
     using Kind = SymbolKind;
 

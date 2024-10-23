@@ -34,7 +34,7 @@ class Variable;
 /**
  * A function declaration (not a definition -- does not contain a body).
  */
-class FunctionDeclaration final : public Symbol {
+class SK_API FunctionDeclaration final : public Symbol {
 public:
     inline static constexpr Kind kIRNodeKind = Kind::kFunctionDeclaration;
 

@@ -28,7 +28,7 @@ enum class OperatorPrecedence : uint8_t;
 /**
  * A call to a child effect object (shader, color filter, or blender).
  */
-class ChildCall final : public Expression {
+class SK_API ChildCall final : public Expression {
 public:
     inline static constexpr Kind kIRNodeKind = Kind::kChildCall;
 

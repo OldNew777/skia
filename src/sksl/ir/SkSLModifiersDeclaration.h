@@ -27,7 +27,7 @@ struct Modifiers;
  *
  * layout(blend_support_all_equations) out;
  */
-class ModifiersDeclaration final : public ProgramElement {
+class SK_API ModifiersDeclaration final : public ProgramElement {
 public:
     inline static constexpr Kind kIRNodeKind = Kind::kModifiers;
 

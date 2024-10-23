@@ -28,7 +28,7 @@ class Type;
  * These always contain exactly 1 matrix of non-matching size. Cells that aren't present in the
  * input matrix are populated with the identity matrix.
  */
-class ConstructorMatrixResize final : public SingleArgumentConstructor {
+class SK_API ConstructorMatrixResize final : public SingleArgumentConstructor {
 public:
     inline static constexpr Kind kIRNodeKind = Kind::kConstructorMatrixResize;
 

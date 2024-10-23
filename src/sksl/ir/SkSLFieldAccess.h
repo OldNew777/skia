@@ -36,7 +36,7 @@ enum class FieldAccessOwnerKind : int8_t {
 /**
  * An expression which extracts a field from a struct, as in 'foo.bar'.
  */
-class FieldAccess final : public Expression {
+class SK_API FieldAccess final : public Expression {
 public:
     using OwnerKind = FieldAccessOwnerKind;
 
