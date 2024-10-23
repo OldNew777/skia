@@ -260,6 +260,8 @@ SK_API skia_private::TArray<const SkSL::Variable*> GetComputeShaderMainParams(co
  */
 class SK_API SymbolTableStackBuilder {
 public:
+    SymbolTableStackBuilder() = delete;
+
     // If the passed-in statement holds a symbol table, adds it to the stack.
     SymbolTableStackBuilder(const Statement* stmt, std::vector<SymbolTable*>* stack);
 
