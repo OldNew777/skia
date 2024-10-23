@@ -16,6 +16,12 @@ namespace SkSL {
 
 class FileOutputStream : public OutputStream {
 public:
+    FileOutputStream() noexcept = delete;
+    FileOutputStream(FileOutputStream&&) noexcept = default;
+    FileOutputStream(const FileOutputStream&) noexcept = delete;
+    FileOutputStream& operator=(FileOutputStream&&) noexcept = default;
+    FileOutputStream& operator=(const FileOutputStream&) noexcept = delete;
+
     FileOutputStream(const char* name) {
         fFile = fopen(name, "wb");
     }

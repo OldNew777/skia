@@ -19,6 +19,7 @@ namespace SkSL {
 
 class SK_API OutputStream {
 public:
+    OutputStream() noexcept = default;
     OutputStream(OutputStream&&) noexcept = default;
     OutputStream(const OutputStream&) noexcept = delete;
     OutputStream& operator=(OutputStream&&) noexcept = default;

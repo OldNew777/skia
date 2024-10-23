@@ -16,6 +16,12 @@ namespace SkSL {
 
 class StringStream : public OutputStream {
 public:
+    StringStream() noexcept = default;
+    StringStream(StringStream&&) noexcept = default;
+    StringStream(const StringStream&) noexcept = delete;
+    StringStream& operator=(StringStream&&) noexcept = default;
+    StringStream& operator=(const StringStream&) noexcept = delete;
+    
     void write8(uint8_t b) override {
         SkASSERT(fString.empty());
         fStream.write8(b);
