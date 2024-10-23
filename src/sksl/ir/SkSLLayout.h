@@ -9,6 +9,7 @@
 #define SKSL_LAYOUT
 
 #include "src/base/SkEnumBitMask.h"
+#include "include/private/base/SkAPI.h"
 
 #include <string>
 
