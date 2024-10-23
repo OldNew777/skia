@@ -8,11 +8,6 @@
 #ifndef SKSL_SYMBOLTABLE
 #define SKSL_SYMBOLTABLE
 
-#include "include/core/SkTypes.h"
-#include "src/core/SkChecksum.h"
-#include "src/core/SkTHash.h"
-#include "src/sksl/ir/SkSLSymbol.h"
-
 #include <cstddef>
 #include <cstdint>
 #include <forward_list>
@@ -21,6 +16,11 @@
 #include <string_view>
 #include <utility>
 #include <vector>
+
+#include "include/core/SkTypes.h"
+#include "src/core/SkChecksum.h"
+#include "src/core/SkTHash.h"
+#include "src/sksl/ir/SkSLSymbol.h"
 
 namespace SkSL {
 
@@ -34,12 +34,14 @@ class Type;
  */
 class SK_API SymbolTable {
 public:
-    explicit SymbolTable(bool builtin)
-            : fBuiltin(builtin) {}
+    explicit SymbolTable(bool builtin) : fBuiltin(builtin) {}
 
-    explicit SymbolTable(SymbolTable* parent, bool builtin)
-            : fParent(parent)
-            , fBuiltin(builtin) {}
+    explicit SymbolTable(SymbolTable* parent, bool builtin) : fParent(parent), fBuiltin(builtin) {}
+
+    SymbolTable(SymbolTable&&) noexcept = default;
+    SymbolTable(const SymbolTable&) noexcept = delete;
+    SymbolTable& operator=(SymbolTable&&) noexcept = default;
+    SymbolTable& operator=(const SymbolTable&) noexcept = delete;
 
     /**
      * Creates a new, empty SymbolTable between this SymbolTable and its current parent.
@@ -51,9 +53,7 @@ public:
     /**
      * Looks up the requested symbol and returns a const pointer.
      */
-    const Symbol* find(std::string_view name) const {
-        return this->lookup(MakeSymbolKey(name));
-    }
+    const Symbol* find(std::string_view name) const { return this->lookup(MakeSymbolKey(name)); }
 
     /**
      * Looks up the requested symbol, only searching the built-in symbol tables. Always const.
@@ -64,9 +64,7 @@ public:
      * Looks up the requested symbol and returns a mutable pointer. Use caution--mutating a symbol
      * will have program-wide impact, and built-in symbol tables must never be mutated.
      */
-    Symbol* findMutable(std::string_view name) const {
-        return this->lookup(MakeSymbolKey(name));
-    }
+    Symbol* findMutable(std::string_view name) const { return this->lookup(MakeSymbolKey(name)); }
 
     /**
      * Looks up the requested symbol and instantiates an Expression reference to it; will return a
@@ -117,8 +115,7 @@ public:
      * Adds a symbol to this symbol table, conferring ownership. The symbol table will always be
      * updated to reference the new symbol. If the symbol already exists, an error will be reported.
      */
-    template <typename T>
-    T* add(const Context& context, std::unique_ptr<T> symbol) {
+    template <typename T> T* add(const Context& context, std::unique_ptr<T> symbol) {
         T* ptr = symbol.get();
         this->addWithoutOwnership(context, this->takeOwnershipOfSymbol(std::move(symbol)));
         return ptr;
@@ -128,8 +125,7 @@ public:
      * Adds a symbol to this symbol table, conferring ownership. The symbol table will always be
      * updated to reference the new symbol. If the symbol already exists, abort.
      */
-    template <typename T>
-    T* addOrDie(std::unique_ptr<T> symbol) {
+    template <typename T> T* addOrDie(std::unique_ptr<T> symbol) {
         T* ptr = symbol.get();
         this->addWithoutOwnershipOrDie(this->takeOwnershipOfSymbol(std::move(symbol)));
         return ptr;
@@ -145,8 +141,7 @@ public:
      * Forces a symbol into this symbol table, conferring ownership. Replaces any existing symbol
      * with the same name, if one exists.
      */
-    template <typename T>
-    T* inject(std::unique_ptr<T> symbol) {
+    template <typename T> T* inject(std::unique_ptr<T> symbol) {
         T* ptr = symbol.get();
         this->injectWithoutOwnership(this->takeOwnershipOfSymbol(std::move(symbol)));
         return ptr;
@@ -155,8 +150,7 @@ public:
     /**
      * Confers ownership of a symbol without adding its name to the lookup table.
      */
-    template <typename T>
-    T* takeOwnershipOfSymbol(std::unique_ptr<T> symbol) {
+    template <typename T> T* takeOwnershipOfSymbol(std::unique_ptr<T> symbol) {
         T* ptr = symbol.get();
         fOwnedSymbols.push_back(std::move(symbol));
         return ptr;
@@ -170,9 +164,8 @@ public:
     const Type* addArrayDimension(const Context& context, const Type* type, int arraySize);
 
     // Call fn for every symbol in the table. You may not mutate anything.
-    template <typename Fn>
-    void foreach(Fn&& fn) const {
-        fSymbols.foreach(
+    template <typename Fn> void foreach (Fn&& fn) const {
+        fSymbols.foreach (
                 [&fn](const SymbolKey& key, const Symbol* symbol) { fn(key.fName, symbol); });
     }
 
@@ -180,23 +173,17 @@ public:
     // common. Parent tables are not considered.
     bool wouldShadowSymbolsFrom(const SymbolTable* other) const;
 
-    size_t count() const {
-        return fSymbols.count();
-    }
+    size_t count() const { return fSymbols.count(); }
 
     /** Returns true if this is a built-in SymbolTable. */
-    bool isBuiltin() const {
-        return fBuiltin;
-    }
+    bool isBuiltin() const { return fBuiltin; }
 
     const std::string* takeOwnershipOfString(std::string n);
 
     /**
      * Indicates that this symbol table's parent is in a different module than this one.
      */
-    void markModuleBoundary() {
-        fAtModuleBoundary = true;
-    }
+    void markModuleBoundary() { fAtModuleBoundary = true; }
 
     SymbolTable* fParent = nullptr;
 
@@ -205,7 +192,7 @@ public:
 private:
     struct SymbolKey {
         std::string_view fName;
-        uint32_t         fHash;
+        uint32_t fHash;
 
         bool operator==(const SymbolKey& that) const { return fName == that.fName; }
         bool operator!=(const SymbolKey& that) const { return fName != that.fName; }
