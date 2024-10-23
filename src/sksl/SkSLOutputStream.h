@@ -19,7 +19,10 @@ namespace SkSL {
 
 class SK_API OutputStream {
 public:
-    OutputStream() = delete;
+    OutputStream(OutputStream&&) noexcept = default;
+    OutputStream(const OutputStream&) noexcept = delete;
+    OutputStream& operator=(OutputStream&&) noexcept = default;
+    OutputStream& operator=(const OutputStream&) noexcept = delete;
 
     virtual bool isValid() const {
         return true;
