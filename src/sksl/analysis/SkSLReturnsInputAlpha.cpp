@@ -123,7 +123,7 @@ private:
 
 }  // namespace
 
-bool Analysis::ReturnsInputAlpha(const FunctionDefinition& function, const ProgramUsage& usage) {
+SK_API bool Analysis::ReturnsInputAlpha(const FunctionDefinition& function, const ProgramUsage& usage) {
     ReturnsInputAlphaVisitor visitor{usage};
     return !visitor.visitProgramElement(function);
 }

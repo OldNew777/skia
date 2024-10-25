@@ -204,7 +204,7 @@ private:
 
 }  // namespace
 
-void Analysis::DoFinalizationChecks(const Program& program) {
+SK_API void Analysis::DoFinalizationChecks(const Program& program) {
     // Check all of the program's owned elements. (Built-in elements are assumed to be valid.)
     FinalizationVisitor visitor{*program.fContext, *program.usage()};
     for (const std::unique_ptr<ProgramElement>& element : program.fOwnedElements) {

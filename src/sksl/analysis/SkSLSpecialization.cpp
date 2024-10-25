@@ -46,7 +46,7 @@ static bool parameter_mappings_are_equal(const SpecializedParameters& left,
     return true;
 }
 
-void FindFunctionsToSpecialize(const Program& program,
+SK_API void FindFunctionsToSpecialize(const Program& program,
                                SpecializationInfo* info,
                                const ParameterMatchesFn& parameterMatchesFn) {
     class Searcher : public ProgramVisitor {
@@ -196,7 +196,7 @@ void FindFunctionsToSpecialize(const Program& program,
     }
 }
 
-SpecializationIndex FindSpecializationIndexForCall(const FunctionCall& call,
+SK_API SpecializationIndex FindSpecializationIndexForCall(const FunctionCall& call,
                                                    const SpecializationInfo& info,
                                                    SpecializationIndex parentSpecializationIndex) {
     SpecializedCallKey callKey{call.stablePointer(), parentSpecializationIndex};
@@ -204,7 +204,7 @@ SpecializationIndex FindSpecializationIndexForCall(const FunctionCall& call,
     return foundIndex ? *foundIndex : kUnspecialized;
 }
 
-SkBitSet FindSpecializedParametersForFunction(const FunctionDeclaration& func,
+SK_API SkBitSet FindSpecializedParametersForFunction(const FunctionDeclaration& func,
                                               const SpecializationInfo& info) {
     SkBitSet result(func.parameters().size());
     if (const Specializations* specializations = info.fSpecializationMap.find(&func)) {
@@ -221,7 +221,7 @@ SkBitSet FindSpecializedParametersForFunction(const FunctionDeclaration& func,
     return result;
 }
 
-void GetParameterMappingsForFunction(const FunctionDeclaration& func,
+SK_API void GetParameterMappingsForFunction(const FunctionDeclaration& func,
                                      const SpecializationInfo& info,
                                      SpecializationIndex specializationIndex,
                                      const ParameterMappingCallback& callback) {

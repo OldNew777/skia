@@ -113,7 +113,7 @@ public:
     using INHERITED = ProgramVisitor;
 };
 
-Analysis::ReturnComplexity Analysis::GetReturnComplexity(const FunctionDefinition& funcDef) {
+SK_API Analysis::ReturnComplexity Analysis::GetReturnComplexity(const FunctionDefinition& funcDef) {
     int returnsAtEndOfControlFlow = count_returns_at_end_of_control_flow(funcDef);
     CountReturnsWithLimit counter{funcDef, returnsAtEndOfControlFlow + 1};
     if (counter.fNumReturns > returnsAtEndOfControlFlow) {

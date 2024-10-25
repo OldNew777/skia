@@ -19,7 +19,7 @@
 
 namespace SkSL {
 
-bool Analysis::HasSideEffects(const Expression& expr) {
+SK_API bool Analysis::HasSideEffects(const Expression& expr) {
     class HasSideEffectsVisitor : public ProgramVisitor {
     public:
         bool visitExpression(const Expression& expr) override {

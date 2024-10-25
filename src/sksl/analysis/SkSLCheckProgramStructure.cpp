@@ -26,7 +26,7 @@
 
 namespace SkSL {
 
-bool Analysis::CheckProgramStructure(const Program& program) {
+SK_API bool Analysis::CheckProgramStructure(const Program& program) {
     const Context& context = *program.fContext;
 
     static constexpr size_t kProgramStackDepthLimit = 50;

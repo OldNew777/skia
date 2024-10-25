@@ -22,7 +22,7 @@
 
 namespace SkSL {
 
-bool Analysis::IsTrivialExpression(const Expression& expr) {
+SK_API bool Analysis::IsTrivialExpression(const Expression& expr) {
     switch (expr.kind()) {
         case Expression::Kind::kLiteral:
         case Expression::Kind::kVariableReference:

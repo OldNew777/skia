@@ -69,7 +69,7 @@ public:
 
 }  // namespace
 
-LoopControlFlowInfo GetLoopControlFlowInfo(const Statement& stmt) {
+SK_API LoopControlFlowInfo GetLoopControlFlowInfo(const Statement& stmt) {
     LoopControlFlowVisitor visitor;
     visitor.visitStatement(stmt);
     return visitor.fResult;

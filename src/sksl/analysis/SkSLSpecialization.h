@@ -98,7 +98,7 @@ using ParameterMatchesFn = std::function<bool(const Variable&)>;
 
 // Finds functions that contain parameters that should be specialized on and writes the
 // specialization info to the provided `SpecializationInfo`.
-void FindFunctionsToSpecialize(const Program& program,
+SK_API void FindFunctionsToSpecialize(const Program& program,
                                SpecializationInfo* info,
                                const ParameterMatchesFn& specializationFn);
 
@@ -106,13 +106,13 @@ void FindFunctionsToSpecialize(const Program& program,
 // the call target. In other words: in the specialization map, we first look up the call target's
 // declaration, which yields a Specialization array. We would find the correct mappings in the array
 // at the SpecializationIndex returned by this function.
-SpecializationIndex FindSpecializationIndexForCall(const FunctionCall& call,
+SK_API SpecializationIndex FindSpecializationIndexForCall(const FunctionCall& call,
                                                    const SpecializationInfo& info,
                                                    SpecializationIndex activeSpecializationIndex);
 
 // Given a function, returns a bit-mask corresponding to each parameter. If a bit is set, the
 // corresponding parameter is specialized and should be excluded from the argument/parameter list.
-SkBitSet FindSpecializedParametersForFunction(const FunctionDeclaration& func,
+SK_API SkBitSet FindSpecializedParametersForFunction(const FunctionDeclaration& func,
                                               const SpecializationInfo& info);
 
 // Given a function and its specialization index, invokes a callback once per specialized parameter.
@@ -122,7 +122,7 @@ using ParameterMappingCallback = std::function<void(int paramIndex,
                                                     const Variable* param,
                                                     const Expression* value)>;
 
-void GetParameterMappingsForFunction(const FunctionDeclaration& func,
+SK_API void GetParameterMappingsForFunction(const FunctionDeclaration& func,
                                      const SpecializationInfo& info,
                                      SpecializationIndex specializationIndex,
                                      const ParameterMappingCallback& callback);

@@ -87,11 +87,11 @@ public:
 
 }  // namespace
 
-bool Analysis::SwitchCaseContainsUnconditionalExit(const Statement& stmt) {
+SK_API bool Analysis::SwitchCaseContainsUnconditionalExit(const Statement& stmt) {
     return SwitchCaseContainsExit{/*conditionalExits=*/false}.visitStatement(stmt);
 }
 
-bool Analysis::SwitchCaseContainsConditionalExit(const Statement& stmt) {
+SK_API bool Analysis::SwitchCaseContainsConditionalExit(const Statement& stmt) {
     return SwitchCaseContainsExit{/*conditionalExits=*/true}.visitStatement(stmt);
 }
 

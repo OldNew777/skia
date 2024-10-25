@@ -18,7 +18,7 @@
 
 namespace SkSL {
 
-bool Analysis::IsDynamicallyUniformExpression(const Expression& expr) {
+SK_API bool Analysis::IsDynamicallyUniformExpression(const Expression& expr) {
     class IsDynamicallyUniformExpressionVisitor : public ProgramVisitor {
     public:
         bool visitExpression(const Expression& expr) override {

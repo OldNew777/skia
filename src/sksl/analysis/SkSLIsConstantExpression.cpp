@@ -154,11 +154,11 @@ private:
 
 }  // namespace
 
-bool Analysis::IsConstantExpression(const Expression& expr) {
+SK_API bool Analysis::IsConstantExpression(const Expression& expr) {
     return !ConstantExpressionVisitor{/*loopIndices=*/nullptr}.visitExpression(expr);
 }
 
-void Analysis::ValidateIndexingForES2(const ProgramElement& pe, ErrorReporter& errors) {
+SK_API void Analysis::ValidateIndexingForES2(const ProgramElement& pe, ErrorReporter& errors) {
     ES2IndexingVisitor visitor(errors);
     visitor.visitProgramElement(pe);
 }

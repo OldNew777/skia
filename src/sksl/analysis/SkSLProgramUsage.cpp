@@ -142,14 +142,14 @@ public:
 
 }  // namespace
 
-std::unique_ptr<ProgramUsage> Analysis::GetUsage(const Program& program) {
+SK_API std::unique_ptr<ProgramUsage> Analysis::GetUsage(const Program& program) {
     auto usage = std::make_unique<ProgramUsage>();
     ProgramUsageVisitor addRefs(usage.get(), /*delta=*/+1);
     addRefs.visit(program);
     return usage;
 }
 
-std::unique_ptr<ProgramUsage> Analysis::GetUsage(const Module& module) {
+SK_API std::unique_ptr<ProgramUsage> Analysis::GetUsage(const Module& module) {
     auto usage = std::make_unique<ProgramUsage>();
     ProgramUsageVisitor addRefs(usage.get(), /*delta=*/+1);
 

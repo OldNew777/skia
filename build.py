@@ -1,9 +1,29 @@
+import distutils.file_util
 import os
-from os.path import join
+from os import path
 from subprocess import check_call
+import distutils.dir_util
+
+def copy_libs(source_dir, target_dir):
+    sufixs = {
+        '.lib',
+        '.dll',
+        '.pdb',
+        '.exp',
+        '.ilk',
+        '.a',
+        '.so',
+        '.dylib',
+    }
+    for file in os.listdir(source_dir):
+        for sufix in sufixs:
+            if file.endswith(sufix):
+                src = path.join(source_dir, file)
+                distutils.file_util.copy_file(src, target_dir, update=True)
+                break
+
 
 if __name__ == '__main__':
-    SKIA_SOURCE_DIR = r'C:\OldNew\Graphics-Lab\OpenHarmony\skia'
     CLANG_DIR = r'C:\dev\vcpkg\installed\x64-windows\tools\llvm'
     
     args = [
@@ -40,50 +60,49 @@ if __name__ == '__main__':
     }
     build_args = {
         'gn': [],
-        'cmake': [
-            '--ide=json',
-            '--json-ide-script=../../gn/gn_to_cmake.py',
-        ],
-        'vs': [
-            '--ide=vs',
-        ],
+        # 'cmake': [
+        #     '--ide=json',
+        #     '--json-ide-script=../../gn/gn_to_cmake.py',
+        # ],
+        # 'vs': [
+        #     '--ide=vs',
+        # ],
     }
 
-    # TODO
-    shared = True
+    # configs
+    is_component_build = True
     cpu_os = 'x64'
-    build_ide = 'gn'
+    build_chain = 'gn'
     compiler = 'clang'
     single_threaded = False
 
-    args.append('is_component_build=' + ('true' if shared else 'false'))
+    args.append('is_component_build=' + ('true' if is_component_build else 'false'))
     args += cpu_os_args[cpu_os]
-    dir = 'Shared' if shared else 'Static'
+    dir = 'Shared' if is_component_build else 'Static'
     dir += '-' + cpu_os
-    dir += '-' + build_ide
+    dir += '-' + build_chain
     args += compiler_args[compiler]
 
     # concat args and execute
     args = '--args=' + (' '.join(args) if len(args) > 0 else '') + ''
-    call_args = [join(SKIA_SOURCE_DIR, 'bin', 'gn'), 'gen', 'out/' + dir, args]
-    call_args += build_args[build_ide]
+    call_args = [path.join('bin', 'gn'), 'gen', 'out/' + dir, args]
+    call_args += build_args[build_chain]
     print(call_args)
 
     check_call(
         call_args,
         shell=True,
-        cwd=SKIA_SOURCE_DIR,
     )
 
-    if build_ide == 'cmake':
-        call_args = ['cmake', '.']
-    else:
-        call_args = ['ninja', '-C', join(SKIA_SOURCE_DIR, 'out/' + dir)]
-        if single_threaded:
-            call_args += ['-j 1']
+    output_dir = path.join('out', dir)
+    call_args = ['ninja', '-C', output_dir]
+    if single_threaded:
+        call_args += ['-j 1']
     check_call(
         call_args,
         shell=True,
-        cwd=join(SKIA_SOURCE_DIR, 'out', dir),
     )
+
+    # copy libs
+    copy_libs(output_dir, 'lib')
     

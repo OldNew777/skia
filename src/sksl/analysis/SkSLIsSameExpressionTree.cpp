@@ -25,7 +25,7 @@
 
 namespace SkSL {
 
-bool Analysis::IsSameExpressionTree(const Expression& left, const Expression& right) {
+SK_API bool Analysis::IsSameExpressionTree(const Expression& left, const Expression& right) {
     if (left.kind() != right.kind() || !left.type().matches(right.type())) {
         return false;
     }

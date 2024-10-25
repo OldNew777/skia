@@ -23,7 +23,7 @@ class Variable;
 /**
  * Side-car class holding mutable information about a Program's IR
  */
-class ProgramUsage {
+class SK_API ProgramUsage {
 public:
     struct VariableCounts {
         int fVarExists = 0;  // if this is zero, the Variable might have already been deleted

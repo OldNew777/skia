@@ -56,7 +56,7 @@ static int calculate_count(double start, double end, double delta, bool forwards
     return (int)count;
 }
 
-std::unique_ptr<LoopUnrollInfo> Analysis::GetLoopUnrollInfo(const Context& context,
+SK_API std::unique_ptr<LoopUnrollInfo> Analysis::GetLoopUnrollInfo(const Context& context,
                                                             Position loopPos,
                                                             const ForLoopPositions& positions,
                                                             const Statement* loopInitializer,

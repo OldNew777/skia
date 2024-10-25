@@ -163,7 +163,7 @@ public:
 
 }  // namespace
 
-bool Analysis::CanExitWithoutReturningValue(const FunctionDeclaration& funcDecl,
+SK_API bool Analysis::CanExitWithoutReturningValue(const FunctionDeclaration& funcDecl,
                                             const Statement& body) {
     if (funcDecl.returnType().isVoid()) {
         return false;

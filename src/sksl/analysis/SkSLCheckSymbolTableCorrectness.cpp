@@ -30,7 +30,7 @@ class Expression;
 class ProgramElement;
 class Symbol;
 
-void Analysis::CheckSymbolTableCorrectness(const Program& program) {
+SK_API void Analysis::CheckSymbolTableCorrectness(const Program& program) {
     const Context& context = *program.fContext;
 
     class SymbolTableCorrectnessVisitor : public ProgramVisitor {
