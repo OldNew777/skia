@@ -38,11 +38,18 @@ Program::~Program() {
     // Some or all of the program elements are in the pool. To free them safely, we must attach
     // the pool before destroying any program elements. (Otherwise, we may accidentally call
     // delete on a pooled node.)
-    AutoAttachPoolToThread attach(fPool.get());
+    {
+        AutoAttachPoolToThread attach(fPool.get());
 
-    fOwnedElements.clear();
+        fSharedElements.clear();
+        fOwnedElements.clear();
+        fSource.release();
+        fConfig.reset();
+        fUsage.reset();
+        fSymbols.reset();
+    }
+
     fContext.reset();
-    fSymbols.reset();
 }
 
 std::string Program::description() const {
