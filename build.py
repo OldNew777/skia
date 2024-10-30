@@ -7,6 +7,7 @@ import argparse
 import sys
 
 def copy_libs(parsed_args, source_dir, target_dir):
+    os.makedirs(target_dir, exist_ok=True)
     suffix_platform = {
         'WIN': [
             '.lib',
