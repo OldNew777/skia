@@ -39,17 +39,11 @@ Program::~Program() {
     // the pool before destroying any program elements. (Otherwise, we may accidentally call
     // delete on a pooled node.)
     {
-        AutoAttachPoolToThread attach(fPool.get());
-
-        fSharedElements.clear();
-        fOwnedElements.clear();
-        fSource.release();
-        fConfig.reset();
-        fUsage.reset();
-        fSymbols.reset();
+    	AutoAttachPoolToThread attach(fPool.get());
+    	fOwnedElements.clear();
     }
-
     fContext.reset();
+    fSymbols.reset();
 }
 
 std::string Program::description() const {
