@@ -41,9 +41,9 @@ Program::~Program() {
     {
     	AutoAttachPoolToThread attach(fPool.get());
     	fOwnedElements.clear();
+    	fSymbols.reset();
     }
     fContext.reset();
-    fSymbols.reset();
 }
 
 std::string Program::description() const {
