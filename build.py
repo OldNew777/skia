@@ -24,17 +24,12 @@ def copy_libs(parsed_args, source_dir, target_dir):
             '.a',
             '.dylib',
         ],
-        '': [
-            '.lib',
-            '.dll',
-            '.pdb',
-            '.exp',
-            '.ilk',
-            '.a',
-            '.so',
-            '.dylib',
-        ]
     }
+    all_postfixes = set()
+    for suffixes in suffix_platform.values():
+        all_postfixes.update(suffixes)
+    suffix_platform[''] = list(all_postfixes)
+
     if parsed_args.target_os in suffix_platform:
         suffixes = suffix_platform[parsed_args.target_os]
     else:
