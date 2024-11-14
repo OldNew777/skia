@@ -16,7 +16,7 @@ namespace skiagm {
 
 namespace {
 
-sk_sp<SkShader> empty(SkRect r) { return sk_make_sp<SkEmptyShader>(); }
+SK_API sk_sp<SkShader> empty(SkRect r) { return sk_make_sp<SkEmptyShader>(); }
 
 sk_sp<SkShader> degen_sweep(SkRect r) {
     // A too small angle between start and end falls back to an empty shader

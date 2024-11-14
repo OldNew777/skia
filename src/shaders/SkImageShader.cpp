@@ -800,14 +800,14 @@ bool SkImageShader::appendStages(const SkStageRec& rec, const SkShaders::MatrixR
 
 namespace SkShaders {
 
-sk_sp<SkShader> Image(sk_sp<SkImage> image,
+SK_API sk_sp<SkShader> Image(sk_sp<SkImage> image,
                       SkTileMode tmx, SkTileMode tmy,
                       const SkSamplingOptions& options,
                       const SkMatrix* localMatrix) {
     return SkImageShader::Make(std::move(image), tmx, tmy, options, localMatrix);
 }
 
-sk_sp<SkShader> RawImage(sk_sp<SkImage> image,
+SK_API sk_sp<SkShader> RawImage(sk_sp<SkImage> image,
                          SkTileMode tmx, SkTileMode tmy,
                          const SkSamplingOptions& options,
                          const SkMatrix* localMatrix) {

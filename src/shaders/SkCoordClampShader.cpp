@@ -56,7 +56,7 @@ void SkRegisterCoordClampShaderFlattenable() {
     SkFlattenable::Register("SkShader_CoordClamp", SkCoordClampShader::CreateProc);
 }
 
-sk_sp<SkShader> SkShaders::CoordClamp(sk_sp<SkShader> shader, const SkRect& subset) {
+SK_API sk_sp<SkShader> SkShaders::CoordClamp(sk_sp<SkShader> shader, const SkRect& subset) {
     if (!shader) {
         return nullptr;
     }

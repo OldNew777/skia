@@ -97,7 +97,7 @@ bool SkBlendShader::appendStages(const SkStageRec& rec, const SkShaders::MatrixR
     return true;
 }
 
-sk_sp<SkShader> SkShaders::Blend(SkBlendMode mode, sk_sp<SkShader> dst, sk_sp<SkShader> src) {
+SK_API sk_sp<SkShader> SkShaders::Blend(SkBlendMode mode, sk_sp<SkShader> dst, sk_sp<SkShader> src) {
     if (!src || !dst) {
         return nullptr;
     }
@@ -114,7 +114,7 @@ sk_sp<SkShader> SkShaders::Blend(SkBlendMode mode, sk_sp<SkShader> dst, sk_sp<Sk
     return sk_sp<SkShader>(new SkBlendShader(mode, std::move(dst), std::move(src)));
 }
 
-sk_sp<SkShader> SkShaders::Blend(sk_sp<SkBlender> blender,
+SK_API sk_sp<SkShader> SkShaders::Blend(sk_sp<SkBlender> blender,
                                  sk_sp<SkShader> dst,
                                  sk_sp<SkShader> src) {
     using namespace SkKnownRuntimeEffects;

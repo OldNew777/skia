@@ -100,9 +100,9 @@ void SkRegisterColorShaderFlattenable() {
 }
 
 namespace SkShaders {
-sk_sp<SkShader> Color(SkColor color) { return sk_make_sp<SkColorShader>(color); }
+SK_API sk_sp<SkShader> Color(SkColor color) { return sk_make_sp<SkColorShader>(color); }
 
-sk_sp<SkShader> Color(const SkColor4f& color, sk_sp<SkColorSpace> space) {
+SK_API sk_sp<SkShader> Color(const SkColor4f& color, sk_sp<SkColorSpace> space) {
     if (!SkIsFinite(color.vec(), 4)) {
         return nullptr;
     }
