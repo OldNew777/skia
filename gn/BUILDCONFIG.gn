@@ -180,7 +180,6 @@ template("component") {
 default_configs = [
   "//gn/skia:default",
   "//gn/skia:no_exceptions",
-  "//gn/skia:no_rtti",
 ]
 if (!is_debug) {
   default_configs += [
@@ -192,7 +191,14 @@ if (is_trivial_abi) {
   default_configs += [ "//gn/skia:trivial_abi" ]
 }
 if (!is_official_build) {
-  default_configs += [ "//gn/skia:debug_symbols" ]
+  default_configs += [
+    "//gn/skia:debug_symbols",
+    "//gn/skia:add_rtti",
+  ]
+} else {
+  default_configs += [
+    "//gn/skia:no_rtti",
+  ]
 }
 default_configs += [ "//gn/skia:extra_flags" ]
 

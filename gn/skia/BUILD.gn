@@ -703,6 +703,14 @@ config("no_rtti") {
   }
 }
 
+config("add_rtti") {
+  if (is_win) {
+    cflags_cc = [ "/GR" ]
+  } else {
+    cflags_cc = [ "-frtti" ]
+  }
+}
+
 config("optimize") {
   ldflags = []
   if (is_win) {

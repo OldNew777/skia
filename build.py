@@ -6,6 +6,20 @@ import distutils.dir_util
 import argparse
 import sys
 
+
+def str2bool(v):
+    if v.lower() in ('yes', 'true', 't', 'y', '1', 'on'):
+        return True
+    elif v.lower() in ('no', 'false', 'f', 'n', '0', 'off'):
+        return False
+    else:
+        raise argparse.ArgumentTypeError('Boolean value expected.')
+
+
+def bool2str(v):
+    return 'true' if v else 'false'
+
+
 def copy_libs(parsed_args, source_dir, target_dir):
     os.makedirs(target_dir, exist_ok=True)
     suffix_platform = {
@@ -42,20 +56,14 @@ def copy_libs(parsed_args, source_dir, target_dir):
                 distutils.file_util.copy_file(src, target_dir, update=True)
                 break
 
-def parse_args():
-    def str2bool(v):
-        if v.lower() in ('yes', 'true', 't', 'y', '1', 'on'):
-            return True
-        elif v.lower() in ('no', 'false', 'f', 'n', '0', 'off'):
-            return False
-        else:
-            raise argparse.ArgumentTypeError('Boolean value expected.')
 
+def parse_args():
     parser = argparse.ArgumentParser(description='Build Skia')
     parser.add_argument('--is_debug', type=str2bool, default=True, help='Build Skia as debug version')
     parser.add_argument('--is_component_build', type=str2bool, default=True, help='Build Skia as a component')
-    parser.add_argument('--target_cpu', type=str, default='x64', help='CPU architecture')
-    parser.add_argument('--target_os', type=str, default='WIN', help='CPU architecture')
+    parser.add_argument('--is_trivial_abi', type=str2bool, default=True, help='Build Skia with trivial ABI')
+    parser.add_argument('--target_cpu', type=str, default='x64', help='Target CPU architecture')
+    parser.add_argument('--target_os', type=str, default='WIN', help='Target OS')
     parser.add_argument('--build_chain', type=str, default='gn', help='Build chain')
     parser.add_argument('--compiler', type=str, default='clang', help='Compiler')
     parser.add_argument('--clang_win', type=str, default='', help='Clang directory')
@@ -75,8 +83,11 @@ if __name__ == '__main__':
         # 'skia_use_system_icu=false',
         # 'skia_use_system_libwebp=false',
         # 'skia_use_system_harfbuzz=false',
-        # 'is_official_build=true',
+        'is_official_build=false',
         'is_debug=true',
+        'is_component_build=' + bool2str(parsed_args.is_component_build),
+        'target_cpu="' + parsed_args.target_cpu + '"',
+        'is_trivial_abi=' + bool2str(parsed_args.is_trivial_abi),
     ]
     compiler_args = {
         'msvc': [],
@@ -84,7 +95,7 @@ if __name__ == '__main__':
     }
     if parsed_args.target_os == 'WIN':
         assert parsed_args.clang_win != '', 'Clang directory must be set for Windows'
-        compiler_args['clang'].append(r'clang_win="' + parsed_args.clang_win +r'"')
+        compiler_args['clang'].append(r'clang_win="' + parsed_args.clang_win + r'"')
     build_args = {
         'gn': [],
         # 'cmake': [
@@ -96,8 +107,6 @@ if __name__ == '__main__':
         # ],
     }
 
-    args.append('is_component_build=' + ('true' if parsed_args.is_component_build else 'false'))
-    args.append('target_cpu="' + parsed_args.target_cpu + '"')
     dir = 'Shared' if parsed_args.is_component_build else 'Static'
     dir += '-' + parsed_args.target_cpu
     dir += '-' + parsed_args.build_chain
@@ -125,4 +134,3 @@ if __name__ == '__main__':
 
     # copy libs
     copy_libs(parsed_args, output_dir, 'lib')
-    
