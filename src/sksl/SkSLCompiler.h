@@ -41,6 +41,10 @@ constexpr int SK_LOCALINVOCATIONID_BUILTIN =      27;
 constexpr int SK_GLOBALINVOCATIONID_BUILTIN =     28;
 constexpr int SK_LOCALINVOCATIONINDEX_BUILTIN =   29;
 
+namespace kernel_fusion {
+class ShaderGraph;
+}
+
 namespace SkSL {
 
 class Inliner;
@@ -68,6 +72,8 @@ public:
     inline static constexpr const char RTADJUST_NAME[]  = "sk_RTAdjust";
     inline static constexpr const char POSITION_NAME[]  = "sk_Position";
     inline static constexpr const char POISON_TAG[]     = "<POISON>";
+
+    friend class kernel_fusion::ShaderGraph;
 
     /**
      * Gets a float4 that adjusts the position from Skia device coords to normalized device coords,
@@ -179,6 +185,7 @@ private:
     /** Updates ProgramSettings to eliminate contradictions and to honor the ProgramKind. */
     static void FinalizeSettings(ProgramSettings* settings, ProgramKind kind);
 
+public:
     /** Prepares the Context for compilation of a program or module. */
     void initializeContext(const SkSL::Module* module,
                            ProgramKind kind,
