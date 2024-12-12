@@ -31,6 +31,10 @@ public:
         return result;
     }
 
+    [[nodiscard]] static Position Empty() noexcept {
+        return Position::Range(0, 0);
+    }
+
     bool valid() const {
         return fStartOffset != -1;
     }
