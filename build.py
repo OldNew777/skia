@@ -68,6 +68,7 @@ def parse_args():
     parser.add_argument('--compiler', type=str, default='clang', help='Compiler')
     parser.add_argument('--clang_win', type=str, default='', help='Clang directory')
     parser.add_argument('--single_threaded_build', type=str2bool, default=False, help='Single threaded build')
+    parser.add_argument('--skia_compile_sksl_tests', type=str2bool, default=False, help='Compile SkSL tests')
     return parser.parse_args()
 
 
@@ -88,6 +89,7 @@ if __name__ == '__main__':
         'is_component_build=' + bool2str(parsed_args.is_component_build),
         'target_cpu="' + parsed_args.target_cpu + '"',
         'is_trivial_abi=' + bool2str(parsed_args.is_trivial_abi),
+        'skia_compile_sksl_tests=' + bool2str(parsed_args.skia_compile_sksl_tests),
     ]
     compiler_args = {
         'msvc': [],
@@ -123,6 +125,7 @@ if __name__ == '__main__':
         shell=True,
     )
 
+    # ninja build
     output_dir = path.join('out', dir)
     call_args = ['ninja', '-C', output_dir]
     if parsed_args.single_threaded_build:

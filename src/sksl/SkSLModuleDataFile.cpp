@@ -22,7 +22,7 @@ SK_API std::string GetModuleData(ModuleType /*name*/, const char* filename) {
     std::ifstream in(std::string{modulePath.c_str()});
     std::string moduleSource{std::istreambuf_iterator<char>(in), std::istreambuf_iterator<char>()};
     if (in.rdstate()) {
-        SK_ABORT("Error reading %s\n", modulePath.c_str());
+        SK_ABORT("Error reading %s", modulePath.c_str());
     }
     return moduleSource;
 }
