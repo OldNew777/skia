@@ -80,6 +80,7 @@
 #include <memory>
 #include <string_view>
 #include <vector>
+#include <iostream>
 
 using namespace skia_private;
 
@@ -2080,6 +2081,13 @@ bool ToGLSL(Program& program, const ShaderCaps* caps, std::string* out) {
         return false;
     }
     *out = buffer.str();
+
+#if defined(SK_DEBUG)
+    std::cout << "***************************************************\n";
+    std::cout << *out;
+    std::cout << "***************************************************\n\n";
+#endif
+
     return true;
 }
 
