@@ -2082,9 +2082,10 @@ bool ToGLSL(Program& program, const ShaderCaps* caps, std::string* out) {
     }
     *out = buffer.str();
 
-#if defined(SK_DEBUG)
+#ifdef SK_DEBUG
     std::cout << "***************************************************\n";
     std::cout << *out;
+    std::cout << "\nNumber of lines: " << std::count(out->begin(), out->end(), '\n') << std::endl;
     std::cout << "***************************************************\n\n";
 #endif
 
