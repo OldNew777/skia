@@ -22,12 +22,6 @@
 #include "src/core/SkTHash.h"
 #include "src/sksl/ir/SkSLSymbol.h"
 
-namespace kernel_fusion {
-class ShaderNode;
-class ShaderGraph;
-class KernelFuser;
-} // namespace kernel_fusion
-
 namespace SkSL {
 
 class Context;
@@ -40,10 +34,6 @@ class Type;
  */
 class SK_API SymbolTable {
 public:
-    friend class kernel_fusion::ShaderNode;
-    friend class kernel_fusion::ShaderGraph;
-    friend class kernel_fusion::KernelFuser;
-
     explicit SymbolTable(bool builtin) : fBuiltin(builtin) {}
 
     explicit SymbolTable(SymbolTable* parent, bool builtin) : fParent(parent), fBuiltin(builtin) {}
