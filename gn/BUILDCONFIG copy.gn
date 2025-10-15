@@ -38,26 +38,12 @@ declare_args() {
   # Enable -H, which prints the include tree during compilation.
   # For use by external tools for analyzing include files.
   show_includes = false
-  ohos_sdk_native_root = ""
-  clang_version = ""
-  abi_target = ""
-  if (target_os == "ohos") {
-    # clang_use_chrome_plugins = false # is ohos
-    ohos_sdk_native_root = "/home/wu/commandline-tools/command-line-tools/sdk/default/openharmony/native"
-    clang_version = "15.0.4"
-  }
 }
 declare_args() {
   is_debug = !is_official_build
 
   # This affects Skia's ABI; must be set consistently for Skia and dependents.
   is_trivial_abi = !is_official_build
-  default_clang_base_path = ""
-  clang_lib_path = ""
-  if (target_os == "ohos") {
-    default_clang_base_path = "${ohos_sdk_native_root}/llvm"
-    clang_lib_path = "${ohos_sdk_native_root}/llvm/lib"
-  }
 }
 
 assert(!(is_debug && is_official_build))
@@ -85,7 +71,6 @@ is_linux = current_os == "linux"
 is_mac = current_os == "mac"
 is_wasm = current_os == "wasm"
 is_win = current_os == "win"
-is_ohos = current_os == "ohos"
 
 # This is just to make the Dawn build files happy. Skia itself uses target_os = "linux"
 # for ChromeOS, so this variable will not affect Skia proper.
@@ -138,20 +123,6 @@ if (is_android) {
     ndk_target = "x86_64-linux-android"
   } else if (target_cpu == "x86") {
     ndk_target = "i686-linux-android"
-  }
-}
-
-if (is_ohos) {
-  if (current_cpu == "arm") {
-    abi_target = "arm-linux-ohos"
-  } else if (current_cpu == "x86") {
-    abi_target = ""
-  } else if (current_cpu == "arm64") {
-    abi_target = "aarch64-linux-ohos"
-  } else if (current_cpu == "x86_64") {
-    abi_target = "x86_64-linux-ohos"
-  } else {
-    assert(false, "Architecture not supported")
   }
 }
 
@@ -233,39 +204,24 @@ default_configs += [ "//gn/skia:extra_flags" ]
 
 set_defaults("executable") {
   configs = [ "//gn/skia:executable" ] + default_configs
-  if (is_ohos) {
-    configs += [ "//gn/skia:ohos_compiler_flags" ]
-  }
 }
 
 set_defaults("source_set") {
   configs = default_configs
-  if (is_ohos) {
-    configs += [ "//gn/skia:ohos_compiler_flags" ]
-  }
 }
 
 set_defaults("static_library") {
   configs = default_configs
-  if (is_ohos) {
-    configs += [ "//gn/skia:ohos_compiler_flags" ]
-  }
 }
 
 set_defaults("shared_library") {
   configs = default_configs
-  if (is_ohos) {
-    configs += [ "//gn/skia:ohos_compiler_flags" ]
-  }
 }
 
 set_defaults("component") {
   configs = default_configs
   if (!is_component_build) {
     complete_static_lib = true
-  }
-  if (is_ohos) {
-    configs += [ "//gn/skia:ohos_compiler_flags" ]
   }
 }
 
@@ -289,10 +245,6 @@ if (is_win) {
   set_default_toolchain("//gn/toolchain:wasm")
   default_toolchain_name = "wasm"
   host_toolchain = "wasm"
-} else if (is_ohos) {
-  set_default_toolchain("//gn/toolchain:ohos")
-  default_toolchain_name = "ohos"
-  host_toolchain = "ohos"
 } else {
   # GCC-like toolchains, including Clang.
   set_default_toolchain("//gn/toolchain:gcc_like")

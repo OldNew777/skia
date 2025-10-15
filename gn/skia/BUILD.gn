@@ -385,7 +385,7 @@ config("default") {
       ldflags += [ "-fsanitize=$sanitizers" ]
     }
 
-    if (is_linux) {
+    if (is_linux || is_ohos) {
       cflags_cc += [ "-stdlib=libc++" ]
       ldflags += [ "-stdlib=libc++" ]
     }
@@ -782,3 +782,52 @@ config("executable") {
     ]
   }
 }
+
+config("ohos_compiler_flags") {
+  cflags = [
+    "-ffunction-sections",
+    "-fno-short-enums",
+    "-fno-addrsig",
+
+    # HarmonyOS SDK 特有抑制项
+    "-Wno-unknown-warning-option",
+    "-Wno-int-conversion",
+    "-Wno-unused-variable",
+    "-Wno-misleading-indentation",
+    "-Wno-missing-field-initializers",
+    "-Wno-unused-parameter",
+    "-Wno-c++11-narrowing",
+    "-Wno-unneeded-internal-declaration",
+    "-Wno-undefined-var-template",
+    "-Wno-implicit-int-float-conversion",
+
+    "--target=${abi_target}",  # 注意必须写在最后
+  ]
+
+  defines = [
+    "HAVE_SYS_UIO_H",
+    "OHOS",
+    "__MUSL__",
+    "_LIBCPP_HAS_MUSL_LIBC",
+    "__BUILD_LINUX_WITH_CLANG",
+    "__GNU_SOURCE",
+    "_GNU_SOURCE",
+  ]
+
+  include_dirs = [
+    "${ohos_sdk_native_root}/sysroot/usr/include/${abi_target}",
+    "${clang_lib_path}/clang/${clang_version}/include",
+  ]
+
+  ldflags = [
+    "-Wl,--no-undefined",
+    "-Wl,--exclude-libs=libunwind_llvm.a",
+    "-Wl,--exclude-libs=libc++_static.a",
+    "-Wl,--exclude-libs=libvpx_assembly_arm.a",
+
+    "--target=${abi_target}",
+  ]
+
+  asmflags = cflags  # 让汇编也共享这些编译参数
+}
+

@@ -208,7 +208,7 @@ using TestRegistry = sk_tools::Registry<Test>;
 #if defined(SK_GANESH)
 using GpuContextType = skgpu::ContextType;
 #else
-using GpuContextType = nullptr_t;
+using GpuContextType = std::nullptr_t;
 #endif
 
 typedef void GrContextTestFn(Reporter*, const sk_gpu_test::ContextInfo&);

@@ -29,6 +29,10 @@ declare_args() {
     cflags = "--sysroot=" +
              rebase_path("$fuchsia_toolchain_path/$target_cpu/sysroot")
     link = rebase_path("$fuchsia_toolchain_path/bin/ld.lld")
+    } else if (is_ohos) { 
+    target_ar = rebase_path("$default_clang_base_path/bin/llvm-ar")
+    target_cc = rebase_path("$default_clang_base_path/bin/clang")
+    target_cxx = rebase_path("$default_clang_base_path/bin/clang++")
   } else {
     target_ar = ar
     target_cc = cc
@@ -266,10 +270,29 @@ template("gcc_like_toolchain") {
     link = invoker.link
     lib_switch = "-l"
     lib_dir_switch = "-L"
+    
+    extra_sysroot = ""
+    solink_prefix = ""
+    solink_postfix = ""
+    binary_prefix = ""
+    binary_postfix = ""
+
+    if (current_os == "ohos") {
+      extra_sysroot = "--sysroot=${ohos_sdk_native_root}/sysroot"
+
+      ohos_libc_dir = "${ohos_sdk_native_root}/sysroot/usr/lib/aarch64-linux-ohos"
+      clang_rt_dir = "${clang_lib_path}/clang/${clang_version}/lib/aarch64-linux-ohos/"
+
+      solink_prefix = "$ohos_libc_dir/crti.o $clang_rt_dir/clang_rt.crtbegin.o"
+      solink_postfix = "$clang_rt_dir/clang_rt.crtend.o $ohos_libc_dir/crtn.o"
+      binary_prefix = "$ohos_libc_dir/Scrt1.o $ohos_libc_dir/crti.o"
+      binary_postfix = "$ohos_libc_dir/crtn.o"
+    }
 
     tool("cc") {
       depfile = "{{output}}.d"
-      command = "$cc_wrapper $cc -MD -MF $depfile {{defines}} {{include_dirs}} {{cflags}} {{cflags_c}} -c {{source}} -o {{output}}"
+      command = "$cc_wrapper $cc -MD -MF $depfile {{defines}} {{include_dirs}} {{cflags}} $extra_sysroot {{cflags_c}} -c {{source}} -o {{output}}"
+      # command = "$cc_wrapper $cc -MD -MF $depfile {{defines}} {{include_dirs}} {{cflags}} {{cflags_c}} -c {{source}} -o {{output}}"
       depsformat = "gcc"
       outputs =
           [ "{{source_out_dir}}/{{target_output_name}}.{{source_name_part}}.o" ]
@@ -278,7 +301,8 @@ template("gcc_like_toolchain") {
 
     tool("cxx") {
       depfile = "{{output}}.d"
-      command = "$cc_wrapper $cxx -MD -MF $depfile {{defines}} {{include_dirs}} {{cflags}} {{cflags_cc}} -c {{source}} -o {{output}}"
+      command = "$cc_wrapper $cxx -MD -MF $depfile {{defines}} {{include_dirs}} {{cflags}} $extra_sysroot {{cflags_cc}} -c {{source}} -o {{output}}"
+      # command = "$cc_wrapper $cxx -MD -MF $depfile {{defines}} {{include_dirs}} {{cflags}} {{cflags_cc}} -c {{source}} -o {{output}}"
       depsformat = "gcc"
       outputs =
           [ "{{source_out_dir}}/{{target_output_name}}.{{source_name_part}}.o" ]
@@ -360,7 +384,8 @@ template("gcc_like_toolchain") {
         _end_group = ""
       }
 
-      command = "$link -shared {{ldflags}} $_start_group @$rspfile {{frameworks}} {{solibs}} $_end_group {{libs}} $rpath -o {{output}}"
+      # command = "$link -shared {{ldflags}} $_start_group @$rspfile {{frameworks}} {{solibs}} $_end_group {{libs}} $rpath -o {{output}}"
+      command = "$link -shared -nostartfiles {{ldflags}} $extra_sysroot $solink_prefix $_start_group @$rspfile {{frameworks}} {{solibs}} $_end_group {{libs}} $solink_postfix $rpath -o {{output}}"
       outputs = [ "{{root_out_dir}}/$soname" ]
       output_prefix = "lib"
       if (is_mac || is_ios) {
@@ -391,7 +416,8 @@ template("gcc_like_toolchain") {
         _start_group = ""
         _end_group = ""
       }
-      command = "$link {{ldflags}} $_start_group @$rspfile {{frameworks}} {{solibs}} $_end_group {{libs}} -o $exe_name"
+      # command = "$link {{ldflags}} $_start_group @$rspfile {{frameworks}} {{solibs}} $_end_group {{libs}} -o $exe_name"
+      command = "$link -nostartfiles {{ldflags}} $extra_sysroot $binary_prefix $_start_group @$rspfile {{frameworks}} {{solibs}} $_end_group {{libs}} $binary_postfix -o $exe_name"
 
       outputs = [ "$exe_name" ]
       description = "link {{output}}"
@@ -463,5 +489,16 @@ if (is_wasm) {
       cxx = "$skia_emsdk_dir/upstream/emscripten/em++"
     }
     link = cxx
+  }
+}
+
+if (is_ohos) {
+  gcc_like_toolchain("ohos") {
+    cpu = current_cpu
+    os = current_os
+    ar = target_ar
+    cc = target_cc
+    cxx = target_cxx
+    link = target_link
   }
 }

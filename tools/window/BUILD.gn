@@ -38,7 +38,7 @@ skia_component("window") {
       "android/WindowContextFactory_android.h",
     ]
     libs += [ "android" ]
-  } else if (is_linux) {
+  } else if (is_linux || is_ohos) {
     sources += [
       "unix/RasterWindowContext_unix.cpp",
       "unix/RasterWindowContext_unix.h",
